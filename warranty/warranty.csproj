@@ -48,6 +48,7 @@
     <Compile Include="ContractAdminTests.cs" />
     <Compile Include="ClaimsAdjudicationTests.cs" />
     <Compile Include="Contract.cs" />
+    <Compile Include="CustomerReimbursementEvent.cs" />
     <Compile Include="LineItem.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductReplacementEvent.cs" />
