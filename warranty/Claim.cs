@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace warranty
 {
     public class Claim
     {
-        public int Id;
-        public double Amount;
-        public DateTime Date;
-        public List<RepairPo> RepairPo = new List<RepairPo>();
+        public readonly int Id;
+        public readonly double Amount;
+        public readonly DateTime Date;
+        public ProductReplacementEvent ProductReplacement;
+        public CustomerReimbursementEvent CustomerReimbursement;
 
         public Claim(int id, double amount, DateTime date)
         {
-            Id = id;
             Amount = amount;
             Date = date;
+            Id = id;
         }
     }
 }

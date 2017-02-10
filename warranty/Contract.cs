@@ -1,43 +1,66 @@
-using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace warranty
 {
     public class Contract
     {
-        public enum Lifecycle { Pending, Active, Expired }
+        public readonly int Id;
+        public readonly double PurchasePrice;
+        private TermsAndConditions _termsAndConditions;
+        private readonly IList<Claim> _claims;
 
-        public int Id;
-        public double PurchasePrice;
-        public DateTime EffectiveDate = new DateTime();
-        public DateTime ExpirationDate = new DateTime();
-        public DateTime PurchaseDate = new DateTime();
-        public int InStoreGuaranteeDays;
-        public Lifecycle Status { get; set; }
-        public Product Product;
-
-        private readonly List<Claim> _claims = new List<Claim>();
-
-        public Contract(int id, double d)
+        public Contract(int id, double purchasePrice, TermsAndConditions termsAndConditions)
         {
             Id = id;
-            PurchasePrice = d;
-            Status = Lifecycle.Pending;
+            PurchasePrice = purchasePrice;
+            _termsAndConditions = termsAndConditions;
+            _claims = new List<Claim>();
         }
 
-        public void Add(Claim claim)
+        public void Add(Claim newClaim)
         {
-            _claims.Add(claim);
+            if (newClaim.Amount < LimitOfLiability()
+                && _termsAndConditions.IsActive(newClaim.Date))
+            {
+                _claims.Add(newClaim);
+            }
+            else
+            {
+                throw new ContractException(
+                    "Contract is not active or amount is less than limit of liability");
+            }
         }
 
-        public List<Claim> Claims
+        public IReadOnlyCollection<Claim> GetClaims()
         {
-            get { return _claims; }
+            return new ReadOnlyCollection<Claim>(_claims);
         }
 
         public void Remove(Claim claim)
         {
             _claims.Remove(claim);
+        }
+
+        public void ExtendAnnualSubscription()
+        {
+            _termsAndConditions = _termsAndConditions.AnnuallyExtended();
+        }
+
+        public TermsAndConditions TermsAndConditions()
+        {
+            return _termsAndConditions;
+        }
+
+        public double LimitOfLiability()
+        {
+            double claimTotal = 0;
+
+            foreach (var clain in GetClaims())
+            {
+                claimTotal += clain.Amount;
+            }
+            return (PurchasePrice - claimTotal) * 0.8;
         }
     }
 }

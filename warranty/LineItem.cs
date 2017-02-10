@@ -1,9 +1,9 @@
-namespace warranty
+﻿namespace warranty_refactored
 {
     public struct LineItem
     {
-        public readonly double Amount;
-        public readonly string Description;
+        public double Amount;
+        public string Description;
 
         public LineItem(double amount, string description)
         {
@@ -19,7 +19,7 @@ namespace warranty
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj is LineItem && Equals((LineItem)obj);
+            return obj is LineItem && Equals((LineItem) obj);
         }
 
         public override int GetHashCode()

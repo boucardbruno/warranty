@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace warranty_refactored
+namespace warranty
 {
     public struct ProductReplacementEvent
     {

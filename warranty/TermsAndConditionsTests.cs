@@ -2,7 +2,7 @@
 using System.Globalization;
 using NUnit.Framework;
 
-namespace warranty_refactored
+namespace warranty
 {
     public class TermsAndConditionsTests
     {

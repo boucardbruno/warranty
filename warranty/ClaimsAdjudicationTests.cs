@@ -9,75 +9,58 @@ namespace warranty
         private readonly CultureInfo _provider = CultureInfo.InvariantCulture;
         private const string FormatDate = "MM-dd-yyyy";
 
+        public Contract BuildContract()
+        {
+            var termsAndConditions = new TermsAndConditions(
+                DateTime.ParseExact("08-05-2010", FormatDate, _provider),
+                DateTime.ParseExact("08-05-2012", FormatDate, _provider),
+                DateTime.ParseExact("08-05-2010", FormatDate, _provider),
+                90);
+
+            return new Contract(999, 100.0, termsAndConditions);
+        }
+
         [Test]
         public void ClaimsAdjudicationTest()
         {
-            var contract = new Contract(999, 100.0)
-            {
-                EffectiveDate = DateTime.ParseExact("08-05-2010", FormatDate, _provider),
-                ExpirationDate = DateTime.ParseExact("08-05-2012", FormatDate, _provider),
-                Status = Contract.Lifecycle.Active
-            };
-
+            var contract = BuildContract();
             var claim = new Claim(888, 79.0, DateTime.ParseExact("08-05-2010", FormatDate, _provider));
             var adjudicator = new ClaimsAdjudicationService();
 
             adjudicator.Adjudicate(contract, claim);
 
-            Assert.AreEqual(1, contract.Claims.Count);
+            Assert.AreEqual(1, contract.GetClaims().Count);
         }
 
         [Test]
-        public void ClaimsAdjudicationForInvalidClaimTest()
+        public void ClaimsAdjudicationForClaimExceedingLimitOfLiabilityTest()
         {
-            var contract = new Contract(999, 100.0)
-            {
-                EffectiveDate = DateTime.ParseExact("08-05-2010", FormatDate, _provider),
-                ExpirationDate = DateTime.ParseExact("08-05-2012", FormatDate, _provider),
-                Status = Contract.Lifecycle.Active
-            };
+            var contract = BuildContract();
             var claim = new Claim(888, 81.0, DateTime.ParseExact("08-05-2010", FormatDate, _provider));
             var adjudicator = new ClaimsAdjudicationService();
 
-            adjudicator.Adjudicate(contract, claim);
-
-            Assert.AreEqual(0, contract.Claims.Count);
+            Assert.Throws<ContractException>(() => adjudicator.Adjudicate(contract, claim));
         }
+
 
         [Test]
         public void ClaimsAdjudicationForPendingContractTest()
         {
+            var contract = BuildContract();
             var claim = new Claim(888, 81.0, DateTime.ParseExact("08-05-2010", FormatDate, _provider));
-
-            var pendingContract = new Contract(999, 100.0)
-            {
-                EffectiveDate = DateTime.ParseExact("08-05-2010", FormatDate, _provider),
-                ExpirationDate = DateTime.ParseExact("08-05-2012", FormatDate, _provider),
-                Status = Contract.Lifecycle.Pending
-            };
             var adjudicator = new ClaimsAdjudicationService();
 
-            adjudicator.Adjudicate(pendingContract, claim);
-
-            Assert.AreEqual(0, pendingContract.Claims.Count);
+            Assert.Throws<ContractException>(() => adjudicator.Adjudicate(contract, claim));
         }
 
         [Test]
         public void ClaimsAdjudicationForExpiredContractTest()
         {
-            var claim = new Claim(888, 79.0, new DateTime(2010, 05, 08));
-
-            var pendingContract = new Contract(999, 100.0)
-            {
-                EffectiveDate = DateTime.ParseExact("08-05-2010", FormatDate, _provider),
-                ExpirationDate = DateTime.ParseExact("08-05-2012", FormatDate, _provider),
-                Status = Contract.Lifecycle.Expired
-            };
+            var contract = BuildContract();
+            var claim = new Claim(888, 81.0, DateTime.ParseExact("08-05-2012", FormatDate, _provider));
             var adjudicator = new ClaimsAdjudicationService();
 
-            adjudicator.Adjudicate(pendingContract, claim);
-
-            Assert.AreEqual(0, pendingContract.Claims.Count);
+            Assert.Throws<ContractException>(() => adjudicator.Adjudicate(contract, claim));
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace warranty
+﻿namespace warranty_refactored
 {
     public struct Product
     {
@@ -23,7 +23,7 @@ namespace warranty
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            return obj is Product && Equals((Product)obj);
+            return obj is Product && Equals((Product) obj);
         }
 
         public override int GetHashCode()
