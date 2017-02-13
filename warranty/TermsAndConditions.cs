@@ -2,7 +2,7 @@
 
 namespace warranty
 {
-    public struct TermsAndConditions
+    public struct TermsAndConditions : IEquatable<TermsAndConditions>
     {
         public readonly DateTime EffectiveDate;
         public readonly DateTime ExpirationDate;
