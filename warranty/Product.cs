@@ -1,6 +1,8 @@
-﻿namespace warranty_refactored
+﻿using System;
+
+namespace warranty_refactored
 {
-    public struct Product
+    public struct Product : IEquatable<Product>
     {
         public readonly string Name;
         public readonly string SerialNumber;

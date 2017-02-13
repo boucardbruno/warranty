@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace warranty
 {
-    public class Contract
+    public class Contract : IEquatable<Contract>
     {
         public readonly int Id;
         public readonly double PurchasePrice;
@@ -61,6 +62,31 @@ namespace warranty
                 claimTotal += clain.Amount;
             }
             return (PurchasePrice - claimTotal) * 0.8;
+        }
+
+        public bool Equals(Contract other)
+        {
+            return other != null && Id == other.Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((Contract) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = Id;
+                hashCode = (hashCode * 397) ^ PurchasePrice.GetHashCode();
+                hashCode = (hashCode * 397) ^ _termsAndConditions.GetHashCode();
+                hashCode = (hashCode * 397) ^ (_claims != null ? _claims.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

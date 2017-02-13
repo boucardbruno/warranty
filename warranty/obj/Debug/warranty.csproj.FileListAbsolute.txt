@@ -1,0 +1,7 @@
+C:\Users\bouca\Documents\Visual Studio 2015\Projects\CS\warranty\warranty\bin\Debug\warranty.dll
+C:\Users\bouca\Documents\Visual Studio 2015\Projects\CS\warranty\warranty\bin\Debug\warranty.pdb
+C:\Users\bouca\Documents\Visual Studio 2015\Projects\CS\warranty\warranty\bin\Debug\nunit.framework.dll
+C:\Users\bouca\Documents\Visual Studio 2015\Projects\CS\warranty\warranty\bin\Debug\nunit.framework.xml
+C:\Users\bouca\Documents\Visual Studio 2015\Projects\CS\warranty\warranty\obj\Debug\warranty.csprojResolveAssemblyReference.cache
+C:\Users\bouca\Documents\Visual Studio 2015\Projects\CS\warranty\warranty\obj\Debug\warranty.dll
+C:\Users\bouca\Documents\Visual Studio 2015\Projects\CS\warranty\warranty\obj\Debug\warranty.pdb

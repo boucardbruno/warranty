@@ -2,7 +2,7 @@
 
 namespace warranty
 {
-    public struct ProductReplacementEvent
+    public struct ProductReplacementEvent : IEquatable<ProductReplacementEvent>
     {
         public  readonly DateTime ReplacementDate;
 	    public  readonly string Reason;

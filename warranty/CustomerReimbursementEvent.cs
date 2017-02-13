@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace warranty_refactored
+namespace warranty
 {
-    public struct CustomerReimbursementEvent
+    public struct CustomerReimbursementEvent : IEquatable<CustomerReimbursementEvent>
     {
         public readonly DateTime DateOfReimbursement;
 	    public readonly string Reason;

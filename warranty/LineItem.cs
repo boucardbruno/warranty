@@ -1,6 +1,8 @@
-﻿namespace warranty_refactored
+﻿using System;
+
+namespace warranty
 {
-    public struct LineItem
+    public struct LineItem : IEquatable<LineItem>
     {
         public double Amount;
         public string Description;
