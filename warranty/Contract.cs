@@ -6,8 +6,8 @@ namespace warranty
 {
     public class Contract : IEquatable<Contract>
     {
-        public readonly int Id;
-        public readonly double PurchasePrice;
+        public int Id { get; }
+        public double PurchasePrice { get; }
         private TermsAndConditions _termsAndConditions;
         private readonly IList<Claim> _claims;
 

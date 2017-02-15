@@ -4,10 +4,10 @@ namespace warranty
 {
     public struct Product : IEquatable<Product>
     {
-        public readonly string Name;
-        public readonly string SerialNumber;
-        public readonly string Make;
-        public readonly string Model;
+        public string Name { get; }
+        public string SerialNumber { get; }
+        public string Make { get; }
+        public string Model { get; }
 
         public Product(string name, string serialNumber, string make, string model)
         {

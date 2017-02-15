@@ -4,10 +4,10 @@ namespace warranty
 {
     public struct TermsAndConditions : IEquatable<TermsAndConditions>
     {
-        public readonly DateTime EffectiveDate;
-        public readonly DateTime ExpirationDate;
-        public readonly DateTime PurchaseDate;
-        public readonly int InStoreGuaranteeDays;
+        public DateTime EffectiveDate { get; }
+        public DateTime ExpirationDate { get; }
+        public DateTime PurchaseDate { get; }
+        public int InStoreGuaranteeDays { get; }
 
         public TermsAndConditions(DateTime effectiveDate, 
             DateTime expirationDate, 

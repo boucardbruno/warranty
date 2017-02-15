@@ -4,8 +4,8 @@ namespace warranty
 {
     public struct LineItem : IEquatable<LineItem>
     {
-        public double Amount;
-        public string Description;
+        public double Amount { get; }
+        public string Description { get; }
 
         public LineItem(double amount, string description)
         {

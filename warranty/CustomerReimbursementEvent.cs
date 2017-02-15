@@ -4,9 +4,9 @@ namespace warranty
 {
     public struct CustomerReimbursementEvent : IEquatable<CustomerReimbursementEvent>
     {
-        public readonly DateTime DateOfReimbursement;
-	    public readonly string Reason;
-	    public readonly double Amount;
+        public DateTime DateOfReimbursement { get; }
+	    public string Reason { get; }
+	    public double Amount { get; }
 
         public CustomerReimbursementEvent(DateTime dateOfReimbursement, string reason, double amount)
         {

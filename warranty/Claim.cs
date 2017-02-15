@@ -5,11 +5,11 @@ namespace warranty
     public class Claim: IEquatable<Claim>
 
     {
-        public readonly int Id;
-        public readonly double Amount;
-        public readonly DateTime Date;
-        public ProductReplacementEvent ProductReplacement;
-        public CustomerReimbursementEvent CustomerReimbursement;
+        public int Id { get; }
+        public double Amount { get; }
+        public DateTime Date { get; }
+        public ProductReplacementEvent ProductReplacement { get; set; }
+        public CustomerReimbursementEvent CustomerReimbursement { get; set; }
 
         public Claim(int id, double amount, DateTime date)
         {
